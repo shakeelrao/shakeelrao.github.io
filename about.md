@@ -4,7 +4,7 @@ title: About
 ---
 
 >The laws of nature are but the mathematical thoughts of God.<br>
->--Euclid
+>-- Euclid
 
 My name is Shakeel and I am a 3rd year CS student at the University of Waterloo.
 
