@@ -3,6 +3,6 @@ layout: page
 title: Contact
 ---
 
-If you're interested in connecting, feel free to send me a <a href="mailto:shakeelrao79@gmail.com?">message</a>.
+Interested in connecting?
 
-I'm always searching new for opportunities to learn.
+Links: [LinkedIn](https://www.linkedin.com/in/shakeelrao79/), [GitHub](https://github.com/shakeelrao), <a href="mailto:shakeelrao79@gmail.com?">email</a>.
