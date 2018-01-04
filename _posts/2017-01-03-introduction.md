@@ -2,7 +2,7 @@
 layout: post
 title: Introduction
 permalink: introduction
-# comments: true
+comments: true
 ---
 
 <p class="message">
