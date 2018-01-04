@@ -3,6 +3,15 @@ layout: page
 title: About
 ---
 
-My name is Shakeel Rao and I am a Computer Science student at the University of Waterloo, graduating in 2020.
+>The laws of nature are but the mathematical thoughts of God.
+>--Euclid
 
-This is my personal website (built with [Jekyll](https://jekyllrb.com/) and [poole](https://github.com/poole/poole)) where I intend to write programming tutorials, particularly in C++ and Go.
+My name is Shakeel and I am a 3rd year CS student at the University of Waterloo.
+
+My technical interests include:
+* C++, Go, Python
+* Systems programming
+* High-performance software
+
+Currently: Software Engineering Intern @ [Index Exchange](http://www.indexexchange.com/)
+
