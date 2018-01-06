@@ -1,1 +1,1 @@
-Personal website.
+Personal website, built with Jekyll and Poole.
