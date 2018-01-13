@@ -6,9 +6,5 @@ comments: true
 ---
 
 <p class="message">
-  Testing 1 2 3...<br>Testing 1 2 3...<br>Success.
+  Testing 1 2 3...<br>Testing 1 2 3...
 </p>
-
-First official blog post!
-
-Thanks for reading ;) 

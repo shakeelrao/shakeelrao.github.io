@@ -9,7 +9,7 @@ title: About
 My name is Shakeel and I am a 3rd year CS student at the University of Waterloo.
 
 Technical Interests:
-* C++, Go, Python
+* C++, Go
 * Systems programming
 * High-performance software
 
