@@ -14,4 +14,3 @@ Technical Interests:
 * High-performance software
 
 Currently: Software Engineering Intern @ [Index Exchange](http://www.indexexchange.com/).
-
