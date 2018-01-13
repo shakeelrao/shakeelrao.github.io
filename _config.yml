@@ -1,6 +1,10 @@
 # Permalinks
 permalink:           pretty
 
+# Syntax highlighting
+markdown: kramdown
+highlighter: rouge
+
 # Setup
 title:               Shakeel Rao
 tagline:             Programming & Computer Science
