@@ -1,10 +1,6 @@
 # Permalinks
 permalink:           pretty
 
-# Syntax highlighting
-markdown: kramdown
-highlighter: rouge
-
 # Setup
 title:               Shakeel Rao
 tagline:             Programming & Computer Science
@@ -35,7 +31,8 @@ pages_list:
   Archive: '/archive'
   Contact: '/contact'
 
-# Gems
-gems:
+# Plugins (previously Gems)
+plugins:
   - jekyll-paginate
   - jekyll-gist
+  - jemoji

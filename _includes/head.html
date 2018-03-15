@@ -5,6 +5,8 @@
   <title>
     {% if page.title == "Home" %}
       {{ site.title }} &middot; {{ site.tagline }}
+    {% elsif page.title contains "Effective STL:" %}
+      {{ site.title }} &middot; {{ page.title | remove: "Effective STL:" | lstrip }}
     {% else %}
       {{ site.title }} &middot; {{ page.title }}
     {% endif %}
