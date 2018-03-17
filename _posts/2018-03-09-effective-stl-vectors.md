@@ -13,213 +13,166 @@ The main difference between a vector and an array is flexibility. A vector dynam
 Another interesting property of vectors is that inserting a new element is
 _essentially_ constant time. Therefore, the performance tradeoff between a vector and an array is often insignificant.
 
-**Note**: in the code samples, `std::` is omitted for simplicity.
-
 ### Declaration
-To use a vector in a program, add the header `#include <vector>` to the source file.
+To use the vector class, add the header `#include <vector>` to the source file.
 
-Since vectors are template classes, the declaration syntax is
-`vector<T>` where `T` is a valid type (primitive or user-defined):
+Since vectors are template classes, the declaration syntax follows the structure `vector<T>`, where `T` is a primitive or user-defined type. The following examples invoke the _default constructor_, creating an empty vector with a length of zero:
 
 ```cpp
-// creates a vector of type int
-vector<int> v;
-
-// creates a vector of type string
-vector<string> v;
-
-// define a simple 2D-point struct
-struct point {
-  int x;
-  int y;
+struct Point {
+  int x, y;
 };
 
-// creates a vector of type point
-vector<point> v;
+// vector of type Point
+vector<Point> v1;
+
+// vector of type int
+vector<int> v2;
+
+// vector of type string
+vector<string> v3;
 ```
 
-The previous examples invoke the default constructor, creating an empty vector. To create a vector with an initial length, use the fill constructor:
+To create a vector with an initial length, there is the _fill constructor_:
 
 ```cpp
-// creates a vector with 100 zeroes
-vector<int> v(100);
+// 5 ints with value 0
+vector<int> v1(5);
 
-// define maximum size
-const int SIZE = 1000;
-
-// creates a vector with SIZE (1000) zeroes
-vector<int> v(SIZE);
+// 5 ints with value 100
+vector<int> v2(5, 100)
 ```
 
-With the fill constructor, the elements of a vector are default constructed (in the case of an `int`, the default constructed value is zero).
+In general, the first parameter to the fill constructor is the length of the vector. The second parameter is an _optional_ value. If a value is not specified (as in the first example), the fill constructor will assign the elements to the default constructed value of the declared type. In the case of `int`, the default constructed value is zero.
 
-To initialize a vector with a set of elements, use the uniform initialization syntax:
-
-```cpp
-// creates a vector containing 4 elements (1, 2, 3)
-vector<int> v = {1, 2, 3};
-
-// creates a vector containing 2 elements (1, 2)
-vector<int> v{1, 2};
-
-// creates a vector containing 1 element (10)
-vector<int> v{10};
-```
-
-The STL also provides a range based constructor:
+To initialize a vector to a set of elements, the STL provides the _initializer list constructor_ and the _range-based constructor_:
 
 ```cpp
-// creates a vector containing 5 elements (1, 2, 3, 4, 5)
+// initializer list
 vector<int> v1 = {1, 2, 3, 4, 5};
 
-// creates a vector containing 2 elements (3, 4)
-vector<int> v2(v1.begin() + 2, v1.end() - 1);
+// initializer list
+vector<char> v2 = {'h', 'e', 'l', 'l', 'o'};
 
-// creates a vector containing the values of v2 (3, 4)
-// equivalent to:
-// vector<int> v3(v2);
-vector<int> v3(v2.begin(), v2.end());
+// ranged-based: ['h', 'e', 'l']
+vector<int> v3(v2.begin(), v2.end() - 2);
+
+// ranged-based: [3, 4]
+vector<int> v4(v1.begin() + 2, v1.end() - 1);
 ```
 
-### Accessing Elements
-Accessing elements by index with a vector is identical to the syntax provided by arrays:
+### Element Access
+Accessing a vector by position is identical to the array syntax. In C++, vectors are indexed by zero:
 
 ```cpp
-// create a vector
-vector<int> v = {1, 2, 3};
+vector<string> num = {1, 2, 3, 4, 5};
 
-// change first element to -1
-v[0] = -1;
+// reverse vector by swapping the outermost elements
+int size = num.size();
+for (int i = 0; i < size / 2; i++) {
+  swap(num[i], num[size - i - 1]);
+}
 
-// add 10 to the second element
-v[1] += 10;
-
-// v is now (-1, 12, 3)
-// sum equals 14
-int sum = v[0] + v[1] + v[2];
-
-// attempt to access fourth element
-int x = v[3]; // ???
+// attempt to access 6th element...
+int test = num[size];
 ```
 
-It is important to note that `operator[]` does _not_ perform bounds checking. Therefore, the last example results in undefined behaviour (the program may crash or continue silently by assigning `x` to a garbage value).
+Similar to arrays, `operator[]` does _not_ perform bounds checking. Therefore, the last line produces _undefined behaviour_ (the program may crash or continue silently by assigning `test` to a random value).
 
-To avoid this, the vector class provides the `at` method which throws an exception if the provided index is _not_ within bounds. In particular, `v.at(3)` will throw an `out_of_range` exception, instead of potentially crashing the program.
+To avoid undefined behaviour, the vector class provides an `at` method which throws an exception if the specified index is _not_ within bounds. In particular, `v.at(size)` will throw an `out_of_range` exception.
 
-### Modifying Elements
-The vector class provides several modifier methods, including: `push_back`, `insert`, `erase` and `clear`.
+### Mutation
+Vectors have several modifier methods, including: `push_back`, `insert`, `erase` and `clear`.
 
-The most common method is `push_back`. As implied by the name, it "pushes" (adds) an element to back of the vector, increasing the size of the container by 1.
+The `push_back` method adds an element to back of the vector, increasing the size of the container by 1.
 
-Here's an example which demonstrates how to store the contents of text file line-by-line with `push_back` (error checking is omitted for simplicity):
+Here is a simple example:
 
 ```cpp
-// create the file stream
+// initialize file stream
 ifstream file("test_file.txt");
 
-// create an empty vector
+// create vector to store input
 vector<string> input;
 
-// read file line-by-line, adding the string to the input vector
+// read file line-by-line
 string line;
 while (getline(file, line)) {
+  // add line to vector
   input.push_back(line);
 }
 ```
 
-Thanks to [amortized analysis](https://en.wikipedia.org/wiki/Amortized_analysis), the run-time of  this code is linear (since `push_back` is, on average, constant time).
+Thanks to [amortized analysis](https://en.wikipedia.org/wiki/Amortized_analysis), `push_back` is, on average, constant time.
 
-A common source of error is to confuse `push_back` with `operator[]`. Consider the following example:
+A common source of error is to confuse `push_back` with `operator[]`. Consider initializing a vector to the numbers 1 through 100:
 
 ```cpp
-// example:
-// write code to create a vector
-// containing the numbers 1 through 10
-
-// construct a vector with initial size of 10
-vector<int> v(10);
+// set initial size
+vector<int> num(100);
 
 // add i to the vector
-for (int i = 1; i <= 10; i++) {
-  v.push_back(i);
+for (int i = 1; i <= 100; i++) {
+  num.push_back(i);
 }
 ```
 
-To an inexperienced programmer, this code seems perfectly reasonable. But, it is technically incorrect.
+To an inexperienced C++ programmer, this code _seems_ reasonable. But, it is incorrect.
 
-The result is actually a vector with 20 elements -- the first ten are zeroes (created by the constructor) and the remaining elements are 1 through 10 (added by `push_back`).
+In fact, `num` contains 200 elements -- the first hundred elements are zeroes (created by the constructor) and the remaining elements are 1 through 100 (added by `push_back`).
 
-Another useful method is `insert`:
+Another common modifier method is `insert`:
 
 ```cpp
-// initialization
-vector<char> word = {'h', 'e' 'o'};
+vector<char> word = {'h', 'l', 'l', 'o'};
 
-// inserts "ll" between "e" and "o"
-word.insert(word.begin() + 2, {'l', 'l'});
-
-// prints "hello"
-for (int i = 0; i < word.size(); i++) {
-  cout << word[i];
-}
+// insert 'e' between 'h' and 'l'
+word.insert(word.begin() + 1, 'e');
 ```
 
-Given an iterator `it` and a value `v`, `insert` shifts all elements to the right of `it` and then copy/move constructs `v`. In the previous example, `v` is an initializer list (rather than a single value).
-
-On average, `insert` is linear time. Therefore, multiple calls to `insert` can result in inefficient code (especially in a loop). Use it sparingly!
-
-**Note:** if appending to the front/middle of a vector is a common operation, consider using the list container instead.
+In general, `insert` is a linear-time operation. Therefore, avoid calling `insert` in a loop (consider the list container instead).
 
 ### Algorithms
-This section of the tutorial is essentially an introduction to STL algorithm library.
-
-To use the majority of the functions presented in the following examples, add the header `#include <algorithm>` to the source file.
-
-Let's start with a simple example.
+To use the STL algorithms, add the header `#include <algorithm>` to the source file.
 
 #### std::sort
-To sort a vector, simply use the `sort` function (elements are arranged in increasing order by default):
+By default, the `sort` function arranges elements in non-decreasing order:
 
 ```cpp
-// create a vector of random numbers
-vector<int> v = {100, 5, -1, 3, 99, 7, 5};
+vector<int> random = {100, 5, -1, 3, 99, 7, 5};
 
-// v is now [-1, 3, 5, 5, 7, 99, 100]
-sort(v.begin(), v.end());
+// random -> [-1, 3, 5, 5, 7, 99, 100]
+sort(random.begin(), random.end());
 ```
 
-The time-complexity of `sort` is `O(nlogn)`, where `n` is the "distance" between the two iterators passed to `sort`. In this case, `n` is the length of the vector. (For those interested, [introsort](https://en.wikipedia.org/wiki/Introsort) is the sorting algorithm used to implement `sort`).
+The time-complexity of `sort` is `O(nlogn)`, where `n` is the "distance" between the two iterators passed to `sort`. In the previous example, `n` is the length of the vector.
 
-Since `sort` is a generic algorithm, it is possible to sort vectors containing user-defined types as well:
+Since the STL algorithms are generic, it is possible to sort user-defined objects:
 
 ```cpp
-// create an entry struct
-struct entry {
+class Entry {
   string key;
   int value;
 };
 
-// add entries to v
-vector<entry> v;
-v.push_back({"hello", 1});
-v.push_back({"world", 0});
-v.push_back({"apples", 10});
+vector<entry> entries;
+entries.push_back({"hello", 1});
+entries.push_back({"world", 0});
+entries.push_back({"apples", 10});
 
-// sort vector by passing a comparison function
-// v is now [{"world", 0}, {"hello", 1}, {"apples", 10}]
+// sort entries by value
 sort(v.begin(), v.end(),
-     // compare entries by the value field
-     [](const entry &e1, const entry &e2) {
+     [](const Entry &e1, const Entry &e2) {
        return (e1.value < e2.value);
      }
 );
 ```
 
 #### std::for_each
-Instead of writing a for-loop to iterate through a vector, the STL provides the `for_each` function:
+To iterate through a container, the STL provides the `for_each` function:
 
 ```cpp
-// sample implementation of for_each
+// sample implementation
 template<class Iterator, class UnaryOperator>
 UnaryOperator for_each(Iterator first, Iterator last, UnaryOperator f) {
     for (; first != last; ++first) {
@@ -229,34 +182,29 @@ UnaryOperator for_each(Iterator first, Iterator last, UnaryOperator f) {
 }
 ```
 
-Here's a concrete example:
+In general, `for_each` is equivalent to the range-based for loop introduced in C++11. Here is an example which illustrates the similarity:
 
 ```cpp
 vector<string> input = {"hello", "world", "pineapples", "mangoes"};
 
-// print vector line-by-line
-for_each(input.begin(),
-         input.end(),
-         [](const string &s) {
-           cout << s << "\n";
-         }
+// print input: for_each
+for_each(input.begin(), input.end(),
+  [](const string &s) {
+    cout << s << "\n";
+  }
 );
-```
 
-Another common use-case is to mutate the elements of a container:
-```cpp
-vector<int> v = {1, 2, 3, 4, 5};
-
-// multiply elements by 10
-// v is now [10, 20, 30, 40, 50]
-for_each(v.begin(), v.end(), [](int &n) { n *= 10; });
+// print input: for loop
+for (const string &s : input) {
+  cout << s << "\n";
+}
 ```
 
 #### std::accumulate
-The final STL algorithm discussed in this tutorial is `accumulate`. Similar to `for_each`, it is essentially for-loop abstraction designed to "accumulate" (or add) the values of a container:
+Similar to `for_each`, the `accumulate` function provides an for loop abstraction to add the elements of a container:
 
 ```cpp
-// sample implementation of accumulate
+// sample implementation
 template<class Iterator, class T>
 T accumulate(Iterator first, Iterator last, T init) {
     for (; first != last; ++first) {
@@ -267,48 +215,34 @@ T accumulate(Iterator first, Iterator last, T init) {
 ```
 **Note**: `accumulate` is defined in the `#include <numeric>` header.
 
-The canonical example is to calculate the sum of all elements in a vector:
+Here is an example which compares `accumulate` and `for_each`:
 
 ```cpp
 // seed RNG with time
 srand(time(NULL));
 
-// generate 100 random numbers between 0 and 100
-vector<int> v;
+// generate 100 random numbers
+vector<int> random;
 for (int i = 0; i < 100; i++) {
-  v.push_back(rand() % 100);
+  random.push_back(rand() % 100);
 }
 
-// calculate sum
-int sum = accumulate(v.begin(), v.end(), 0);
+// calculate sum: accumulate
+int acc = accumulate(random.begin(), random.end(), 0);
+
+// calculate sum: for_each
+int sum = 0;
+for_each(random.begin(), random.end(),
+  [&](const int &n) {
+    sum += n;
+  }
+)
 ```
 
-For user-defined types, `accumulate` is equally powerful. The following example calculates the total salary of employees:
+### Additional Resources
+* [Template Classes](http://www.cplusplus.com/doc/oldtutorial/templates/)
+* [Iterators](http://www.cplusplus.com/reference/iterator/)
+* [Lambda Expressions](https://msdn.microsoft.com/en-ca/library/dd293608.aspx)
+* [std::vector](http://www.cplusplus.com/reference/vector/vector/)
 
-```cpp
-// employee struct
-struct employee {
-  string name;
-  int salary;
-};
-
-// accumulate function
-int employee_sum(int lhs, const employee &rhs) {
-  return lhs + rhs.salary;
-}
-
-// create employees
-vector<employee> v;
-v.push_back({"bob", 10});
-v.push_back({"alice", 100});
-v.push_back({"shak", 10});
-
-// calculate salary
-// sum equals 120
-int sum = accumulate(.begin(), v.end(), 0, employee_sum)
-```
-
-### Conclusion
-...and that concludes `Effective STL: Vectors`. Thanks for reading!
-
-Additional Resources: [template classes](http://www.cplusplus.com/doc/oldtutorial/templates/), [iterators](http://www.cplusplus.com/reference/iterator/), and [std::vector](http://www.cplusplus.com/reference/vector/vector/).
+Thanks for reading!
