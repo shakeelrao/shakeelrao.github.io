@@ -105,7 +105,7 @@ while (getline(file, line)) {
 
 Thanks to [amortized analysis](https://en.wikipedia.org/wiki/Amortized_analysis), `push_back` is, on average, constant time.
 
-A common source of error is to confuse `push_back` with `operator[]`. Consider initializing a vector to the numbers 1 through 100:
+A common source of error is to equate the behaviour of `push_back` with `operator[]`. Consider creating a vector containing the numbers 1 through 100:
 
 ```cpp
 // set initial size
@@ -117,7 +117,7 @@ for (int i = 1; i <= 100; i++) {
 }
 ```
 
-To an inexperienced C++ programmer, this code _seems_ reasonable. But, it is incorrect.
+To an inexperienced C++ programmer, this code _seems_ reasonable. But, the result is incorrect.
 
 In fact, `num` contains 200 elements -- the first hundred elements are zeroes (created by the constructor) and the remaining elements are 1 through 100 (added by `push_back`).
 
@@ -141,7 +141,7 @@ By default, the `sort` function arranges elements in non-decreasing order:
 ```cpp
 vector<int> random = {100, 5, -1, 3, 99, 7, 5};
 
-// random -> [-1, 3, 5, 5, 7, 99, 100]
+// random: [-1, 3, 5, 5, 7, 99, 100]
 sort(random.begin(), random.end());
 ```
 
