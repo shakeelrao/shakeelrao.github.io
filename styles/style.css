@@ -1,0 +1,23 @@
+body {
+  margin: 20px;
+  font-size: 16px;
+  font-family: monospace;
+  font-style: italic;
+}
+
+a {
+  color: #66b;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul, li { 
+  margin-bottom: 5px; 
+}
+
+.page-not-found {
+  text-align: center;
+}
