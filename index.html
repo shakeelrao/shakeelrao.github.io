@@ -1,72 +1,33 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <title>shakeel rao</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="styles/style.css" rel="stylesheet" type="text/css">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117989976-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'UA-117989976-1');
-    </script>
-  </head>
-  <body>
-    <h1>shakeel rao ⚡</h1>
-    
-    <p>ABOUT ME</p>
-    <ul>
-      <li>computer science student @ <a href="https://uwaterloo.ca">university of waterloo</a></li>
-      <li>interested in distributed systems & infrastructure</li>
-    </ul>
-    <br>
-    
-    <p>WORK EXPERIENCE</p>
-    <ul>
-      <li><a href="https://twitter.com/">twitter</a>, software engineering intern (sep-nov '19)</li>
-      <ul>
-          <li>coordination team : seattle</li>
-      </ul>
-      <br>
-      <li><a href="https://www.linkedin.com">linkedin</a>, systems & infrastructure engineering intern (jan-apr '19)</li>
-      <ul>
-          <li>kafka team : sunnyvale</li>
-      </ul>
-      <br>
-      <li><a href="https://www.bynorth.com/">north</a>, software engineering intern (sep-dec '18)</li>
-      <ul>
-          <li>cloud services team : kitchener</li>
-      </ul>
-      <br>
-      <li><a href="https://www.indexexchange.com/">index exchange</a>, software engineering intern (jan-apr '18)</li>
-      <ul>
-          <li>identity management team : kitchener</li>
-      </ul>
-      <br>
-      <li><a href="https://mdm.ca/md-wealth-management">md financial</a>, software development intern (sep-dec '16)</li>
-      <ul>
-          <li>financial reporting team : ottawa</li>
-      </ul>
-    </ul>
-    <br>
-    
-    <p>INTERESTS</p>
-    <ul>
-      <li>metal, indie, rock</li>
-      <li>streetwear</li>
-    </ul>
-    <br>
-    
-    <p>LINKS</p>
-    <ul>
-      <li><a href="mailto:shakeelrao79@gmail.com">email</a></li>
-      <li><a href="https://www.linkedin.com/in/shakeelrao79">linkedin</a></li>
-      <li><a href="https://github.com/shakeelrao/">github</a></li>
-    </ul>
-    
-    <br>
-    <p>(c) <script type="text/javascript">document.write(new Date().getFullYear());</script> shakeel rao</p>
-  </body>
-</html>
+---
+layout: default
+title: Home
+---
+
+<div class="posts">
+  {% for post in paginator.posts %}
+  <article class="post">
+    <h1 class="post-title">
+      <a href="{{ site.baseurl }}{{ post.url }}">
+        {{ post.title }}
+      </a>
+    </h1>
+
+    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
+
+    {{ post.content }}
+  </article>
+  {% endfor %}
+</div>
+
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    <a class="pagination-item newer" href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Newer</a>
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>

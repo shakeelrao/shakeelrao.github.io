@@ -1,2 +1,2 @@
 # shakeelrao.github.io
-Personal website.
+Personal website, built with Jekyll and poole.
