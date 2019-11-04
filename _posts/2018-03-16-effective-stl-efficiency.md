@@ -6,7 +6,7 @@ comments: true
 ---
 
 ### Overview
-Although the title of this post is _efficiency_, the objective is not how to write _efficient_ code, but how to leverage STL features to write _effective_ code (which is, by definition, also efficient).
+The objective of this post is to explain how to leverage STL features to write _efficient_ C++ code.
 
 Prior experience with C++ is recommended.
 
