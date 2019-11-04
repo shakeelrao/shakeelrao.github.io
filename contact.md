@@ -3,6 +3,8 @@ layout: page
 title: Contact
 ---
 
-Follow me on <a href="https://github.com/shakeelrao">GitHub</a> or <a href="https://www.linkedin.com/in/shakeelrao79/">LinkedIn</a>.
+* [Twitter](https://twitter.com/shakeelrao)
+* [LinkedIn](https://www.linkedin.com/in/shakeelrao79)
+* [GitHub](https://github.com/shakeelrao)
 
-For specific inquires, my email is: _shakeelrao79@gmail.com_.
+For direct inquiries, my email is: _shakeelrao79@gmail.com_.
